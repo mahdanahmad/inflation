@@ -33,10 +33,14 @@ async function initMap() {
 		.attr('id', 'background')
 		.attr('width', width)
 		.attr('height', height)
+		// .attr('width', width * 1.5)
+		// .attr('height', height * 1.5)
+		// .attr('transform', 'translate(' + -(width * .25) + ',' + -(height * .25) + ')')
 		.on('click', () => zoom(null));
 
 	await drawGeoJson('0');
 
+	initLine(svg);
 }
 
 function drawGeoJson(filename) {
@@ -83,7 +87,7 @@ function zoom(id) {
 			dx = mappedGeo[id].bounds[1][0] - mappedGeo[id].bounds[0][0],
       		dy = mappedGeo[id].bounds[1][1] - mappedGeo[id].bounds[0][1],
 
-			scale = dx > dy ? node.width * .35 / dx : node.height * .8 / dy;
+			scale = dx > dy ? node.width * .35 / dx : node.height * .7 / dy;
 
 			centered = id;
 
@@ -100,7 +104,7 @@ function zoom(id) {
 		}
 
 		let transform	= 'translate(' + node.width / 2 + ',' + node.height / 2 + ')scale(' + scale + ')translate(' + -x + ',' + -y + ')';
-		canvas.transition()
+		canvas.transition(def_transtn)
 			.duration(def_duration)
 			.attr('transform', transform);
 	}

@@ -2,6 +2,8 @@
 @import "mixins";
 
 @import "components/map";
+@import "components/line";
+@import "components/wordcloud";
 
 a { cursor: pointer; text-decoration: none; color: black; }
 ul { list-style-type: none; margin: 0px; padding: 0px; }

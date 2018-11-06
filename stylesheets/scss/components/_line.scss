@@ -1,0 +1,14 @@
+$line-clr	: rgba(85,90,75,1);
+
+g#line-viz {
+	rect { fill: $default-back; fill-opacity: .8; }
+	path#line { fill: none; stroke: $line-clr; stroke-width: 2px; shape-rendering: crispEdges; }
+	g#dot-wrapper {
+		circle.dot { fill: $line-clr; stroke: none; }
+	}
+	g#detail-wrapper {
+		text {
+			fill: $line-clr;
+		}
+	}
+}
