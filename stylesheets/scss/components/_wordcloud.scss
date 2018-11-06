@@ -1,0 +1,13 @@
+#wordcloud-wrapper {
+	min-width: 800px; width: 55%; height: 70%;
+	position: absolute; left: 22.5%; top: calc(100% - 50px);
+	z-index: 28; background: $wordcloud-back; border-radius: 10px;
+	color: black;
+	@include transition(all .65s); transition-timing-function: ease-out;
+	#wordcloud-title {
+		text-align: center; font-size: 14px; line-height: 40px;
+		border-bottom: 1px solid #{$default-back};
+		span.typcn { font-size: 20px; line-height: 40px; position: absolute; right: 15px; color: $default-back; }
+	}
+	&.opened { top: 15%; }
+}

@@ -12,7 +12,9 @@
 		<link rel="shortcut icon" type="image/x-icon" href="public/pulselab.ico">
 
 		<link rel="stylesheet" href="stylesheets/css/main.css">
-		<link href="https://fonts.googleapis.com/css?family=Niramit" rel="stylesheet">
+
+		<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet">
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
@@ -33,11 +35,15 @@
 	</head>
 	<body>
 	    <div id="root" class="cursor-default">
-			<!-- <div id="ceil-wrapper">
-				<div id="wordcloud-wrapper"></div>
-				<div id="line-wrapper"></div>
-			</div> -->
 			<div id="map-wrapper"></div>
+			<div id="wordcloud-wrapper">
+				<div id="wordcloud-title" class="cursor-pointer" onclick="onclickWordcloud()">
+					<span>Wordcloud - <span id="title-region">National</span></span>
+					<span class="typcn typcn-arrow-sorted-up"></span>
+					<span class="typcn typcn-times hidden"></span>
+				</div>
+			</div>
+			<div id="overlay" class="hidden" onclick="onclickWordcloud()"></div>
 		</div>
 	</body>
 </html>

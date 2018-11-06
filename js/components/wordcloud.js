@@ -33,10 +33,10 @@ function updateWordcloud(words, canvas) {
 		.fontSize((o) => (fontScale(+o.value)))
 		.text((o) => (o.key))
 		.rotate(() => (0))
-		.font('Niramit')
+		.font(def_font)
 		.on('end', (words) => {
 			canvas.selectAll('text').data(words, (o) => (o.key)).enter().append('text')
-				.style('font-family', 'Niramit')
+				.style('font-family', def_font)
 				.style('fill', 'white')
 				.attr('font-size', 1)
 				.attr('text-anchor', 'middle')
@@ -48,4 +48,9 @@ function updateWordcloud(words, canvas) {
 				.style('fill-opacity', 1);
 		})
 		.start();
+}
+
+function onclickWordcloud() {
+	$(' #wordcloud-title > span.typcn, #overlay ').toggleClass('hidden');
+	$(' #wordcloud-wrapper ').toggleClass('opened');
 }
