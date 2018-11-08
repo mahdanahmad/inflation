@@ -1,7 +1,7 @@
 const map_dest		= '#map-wrapper';
 const map_id		= 'map-viz';
 
-const word_dest		= '#wordcloud-wrapper';
+const word_dest		= '#wordcloud-content';
 const word_id		= 'word-viz';
 
 const line_dest		= '#line-wrapper';

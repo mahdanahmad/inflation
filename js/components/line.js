@@ -63,7 +63,7 @@ function initLine(target) {
 	detail.attr('transform', 'translate(' + (canvasWidth * (pathWidth)) + ',' + (yScale(_.chain(data).maxBy('month').get('inf').value()) - detail.node().getBBox().height / 2) + ')')
 	detail.select('text#floor').attr('x', detail.node().getBBox().width);
 
-	updateLine(_.chain(12).range().map((o) => ({ month: moment().subtract(o, 'months').startOf('month').toDate(), inf: _.chain(-3).random(3, true).round(2).value() })).value())
+	updateLine(_.chain(12).range().map((o) => ({ month: moment().subtract(o, 'months').startOf('month').toDate(), inf: _.chain(-1).random(1, true).round(2).value() })).value())
 }
 
 function updateLine(data) {

@@ -69,13 +69,13 @@ function drawGeoJson(filename) {
 			.text((o) => (o.properties.name));
 
 		provElem
-			.on('click', (o) => (zoom(o.properties.id)))
+			.on('click', (o) => (zoom(o.properties.id, o.properties.name)))
 
 		resolve();
 	});
 }
 
-function zoom(id) {
+function zoom(id, name) {
 	if (path && canvas.node()) {
 		let x, y;
 		let node	= canvas.node().getBBox();
@@ -107,5 +107,7 @@ function zoom(id) {
 		canvas.transition(def_transtn)
 			.duration(def_duration)
 			.attr('transform', transform);
+
+		$('span#title-region').text(name || 'National')
 	}
 }

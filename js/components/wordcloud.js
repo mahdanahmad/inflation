@@ -24,12 +24,13 @@ function initWordcloud() {
 }
 
 function updateWordcloud(words, canvas) {
-	let fontScale	= d3.scaleLinear().domain([d3.min(words, (o) => (o.value)), d3.max(words, (o) => (o.value))]).range([10,40]);
+	let fontScale	= d3.scaleLinear().domain([d3.min(words, (o) => (o.value)), d3.max(words, (o) => (o.value))]).range([10,60]);
 
 	canvas.selectAll('text').remove();
 
 	d3.layout.cloud().size([width, height])
 		.words(words)
+		.padding(2)
 		.fontSize((o) => (fontScale(+o.value)))
 		.text((o) => (o.key))
 		.rotate(() => (0))
@@ -37,7 +38,6 @@ function updateWordcloud(words, canvas) {
 		.on('end', (words) => {
 			canvas.selectAll('text').data(words, (o) => (o.key)).enter().append('text')
 				.style('font-family', def_font)
-				.style('fill', 'white')
 				.attr('font-size', 1)
 				.attr('text-anchor', 'middle')
 				.text((o) => (o.key));
