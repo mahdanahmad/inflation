@@ -1,4 +1,4 @@
-$line-clr	: rgba(85,90,75,1);
+$line-clr	: $land-color;
 
 g#line-viz {
 	rect { fill: $default-back; fill-opacity: .8; }
@@ -10,6 +10,8 @@ g#line-viz {
 		text {
 			fill: $line-clr;
 		}
+		&.inflate text#ceil { fill: $inf-clr; }
+		&.deflate text#ceil { fill: $def-clr; }
 	}
 	g#tooltip-wrapper {
 		text { fill: white; }

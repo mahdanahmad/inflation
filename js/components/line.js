@@ -81,6 +81,8 @@ function initLine(target) {
 }
 
 function updateLine(data) {
+	data	= _.orderBy(data, 'month', 'desc');
+
 	xScale.domain([d3.min(data, (o) => (o.month)), d3.max(data, (o) => (o.month))]);
 	yScale.domain([_.floor(d3.min(data, (o) => (o.inf))), _.ceil(d3.max(data, (o) => (o.inf)))]);
 
@@ -105,8 +107,12 @@ function updateLine(data) {
 		.on('mouseover', onMouseOver)
 		.on('mouseout', onMouseOut);
 
-	roam.select('text#ceil').text(_.chain(data).maxBy('month').get('inf').value());
-	roam.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for ' + moment().format('MMMM YYYY'));
+	let inf_value	= _.chain(data).maxBy('month').get('inf').value();
+	detail.select('text#ceil').text(inf_value);
+	detail.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for ' + moment().format('MMMM YYYY'));
+
+	detail.classed('inflate', inf_value > limit_top);
+	detail.classed('deflate', inf_value < limit_btm);
 
 	let transform	= detail.attr('transform').split(',')[0] + ',' + (yScale(_.chain(data).maxBy('month').get('inf').value()) - detail.node().getBBox().height / 2) + ')';
 	selector.select('g#detail-wrapper').attr('transform', transform);

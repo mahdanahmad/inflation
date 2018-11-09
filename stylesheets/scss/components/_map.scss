@@ -1,11 +1,12 @@
-$land-color	: rgba(85,90,75,1);
-
 svg#map-viz {
 	rect#background { fill: transparent; }
 	g#geojson-wrapper {
 		g.province {
 			path { fill: $land-color; stroke: $default-back; }
 			&.unintended path { fill-opacity: .15; }
+
+			&.inflate path { fill: $inf-clr; }
+			&.deflate path { fill: $def-clr; }
 		}
 	}
 }

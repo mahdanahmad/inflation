@@ -10,3 +10,6 @@ const line_id		= 'line-viz';
 const def_font		= 'Poppins';
 const def_duration	= 750;
 const def_transtn	= d3.transition().ease(d3.easeCubicOut);
+
+const limit_top		= 1;
+const limit_btm		= -1;

@@ -103,6 +103,8 @@ function zoom(id, name) {
 			d3.selectAll('g.province').classed('unintended', false);
 		}
 
+		refreshValues();
+
 		let transform	= 'translate(' + node.width / 2 + ',' + node.height / 2 + ')scale(' + scale + ')translate(' + -x + ',' + -y + ')';
 		canvas.transition(def_transtn)
 			.duration(def_duration)
