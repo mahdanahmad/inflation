@@ -1,4 +1,4 @@
-let path, projection, centered, canvas;
+let path, projection, centered, canvas, back;
 
 let mappedGeo	= {};
 let scale		= 1;
@@ -34,6 +34,16 @@ function initMap() {
 			.attr('id', 'background')
 			.attr('width', width)
 			.attr('height', height)
+			.on('click', () => zoom(null));
+
+		back	= svg.append('text')
+			.attr('id', 'back-button')
+			.attr('class', 'cursor-pointer hidden')
+			.attr('x', canvasWidth - 75)
+			.attr('y', canvasHeight * .2 + 20)
+			.attr('alignment-baseline', 'hanging')
+			.attr('text-anchor', 'end')
+			.text('Back to National')
 			.on('click', () => zoom(null));
 
 		await drawGeoJson('0');
@@ -102,7 +112,7 @@ function zoom(id, name) {
 
 			d3.selectAll('g.province').classed('unintended', false);
 		}
-
+		back.classed('hidden', !id);
 		refreshValues();
 
 		let transform	= 'translate(' + node.width / 2 + ',' + node.height / 2 + ')scale(' + scale + ')translate(' + -x + ',' + -y + ')';
