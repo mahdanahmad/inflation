@@ -3,44 +3,44 @@ let path, projection, centered, canvas;
 let mappedGeo	= {};
 let scale		= 1;
 
-async function initMap() {
-	d3.select(map_dest).selectAll('svg').remove();
+function initMap() {
+	return new Promise(async (resolve, reject) => {
+		d3.select(map_dest).selectAll('svg').remove();
 
-	let canvasWidth		= $(map_dest).outerWidth(true);
-	let canvasHeight	= $(map_dest).outerHeight(true);
+		let canvasWidth		= $(map_dest).outerWidth(true);
+		let canvasHeight	= $(map_dest).outerHeight(true);
 
-	let margin 			= { top: 0, right: 0, bottom: 0, left: 0 };
-	let width			= canvasWidth - margin.right - margin.left;
-	let height			= canvasHeight - margin.top - margin.bottom;
+		let margin 			= { top: 0, right: 0, bottom: 0, left: 0 };
+		let width			= canvasWidth - margin.right - margin.left;
+		let height			= canvasHeight - margin.top - margin.bottom;
 
-	projection			= d3.geoMercator()
-		.scale(width * 1.15)
-		.center([118, -1.85])
-		.translate([width / 2, height / 2]);
+		projection			= d3.geoMercator()
+			.scale(width * 1.15)
+			.center([118, -1.85])
+			.translate([width / 2, height / 2]);
 
-	path	= d3.geoPath().projection(projection);
+		path	= d3.geoPath().projection(projection);
 
-	let svg = d3.select(map_dest).append('svg')
-		.attr('id', map_id)
-		.attr('width', canvasWidth)
-		.attr('height', canvasHeight)
+		let svg = d3.select(map_dest).append('svg')
+			.attr('id', map_id)
+			.attr('width', canvasWidth)
+			.attr('height', canvasHeight)
 
-	canvas	= svg.append('g')
-		.attr('id', 'canvas')
-		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+		canvas	= svg.append('g')
+			.attr('id', 'canvas')
+			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-	canvas.append('rect')
-		.attr('id', 'background')
-		.attr('width', width)
-		.attr('height', height)
-		// .attr('width', width * 1.5)
-		// .attr('height', height * 1.5)
-		// .attr('transform', 'translate(' + -(width * .25) + ',' + -(height * .25) + ')')
-		.on('click', () => zoom(null));
+		canvas.append('rect')
+			.attr('id', 'background')
+			.attr('width', width)
+			.attr('height', height)
+			.on('click', () => zoom(null));
 
-	await drawGeoJson('0');
+		await drawGeoJson('0');
+		await initLine(svg);
 
-	initLine(svg);
+		resolve();
+	});
 }
 
 function drawGeoJson(filename) {

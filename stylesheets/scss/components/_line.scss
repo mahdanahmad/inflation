@@ -11,4 +11,8 @@ g#line-viz {
 			fill: $line-clr;
 		}
 	}
+	g#tooltip-wrapper {
+		text { fill: white; }
+		rect { fill: $line-clr; fill-opacity: .65; }
+	}
 }

@@ -1,6 +1,8 @@
 moment.locale('id');
 
-$( document ).ready(function() {
-	initMap();
-	initWordcloud();
+$( document ).ready(async function() {
+	await initMap();
+	await initWordcloud();
+
+	
 });
