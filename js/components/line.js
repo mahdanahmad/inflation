@@ -1,6 +1,6 @@
 let roam, xScale, yScale, line, detail, tooltip;
 
-const pathWidth	= .725;
+const pathWidth	= .675;
 
 const ceil_size		= 75;
 const floor_size	= 12;
@@ -60,15 +60,16 @@ function initLine(target) {
 		detail.append('text')
 			.attr('id', 'ceil')
 			.attr('font-size', ceil_size + 'px')
-			.attr('alignment-baseline', 'hanging')
+			.attr('y', ceil_size)
+			// .attr('alignment-baseline', 'hanging')
 			.text('0');
 
 		detail.append('text')
 			.attr('id', 'floor')
 			.attr('font-size', floor_size + 'px')
-			.attr('alignment-baseline', 'hanging')
+			// .attr('alignment-baseline', 'hanging')
 			.attr('text-anchor', 'end')
-			.attr('y', ceil_size)
+			.attr('y', ceil_size + floor_size + 10)
 			.text(moment().format('MMMM YYYY'));
 
 		detail.attr('transform', 'translate(' + (canvasWidth * (pathWidth)) + ',' + (yScale(_.chain(data).maxBy('month').get('inf').value()) - detail.node().getBBox().height / 2) + ')')
