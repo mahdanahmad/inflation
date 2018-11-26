@@ -8,9 +8,9 @@ $( document ).ready(async function() {
 	await initMap();
 	await initWordcloud();
 
-	inf_ids		= _.chain(provinces).sampleSize(5).map('id').value();
-	def_ids		= _.chain(provinces).reject((o) => (_.includes(inf_ids, o.id))).sampleSize(5).map('id').value();
-	warn_ids	= _.chain(provinces).reject((o) => (_.includes(inf_ids, o.id))).reject((o) => (_.includes(def_ids, o.id))).sampleSize(5).map('id').value();
+	inf_ids		= _.chain(provinces).sampleSize(3).map('id').value();
+	def_ids		= _.chain(provinces).reject((o) => (_.includes(inf_ids, o.id))).sampleSize(3).map('id').value();
+	warn_ids	= _.chain(provinces).reject((o) => (_.includes(inf_ids, o.id))).reject((o) => (_.includes(def_ids, o.id))).sampleSize(3).map('id').value();
 
 	d3.selectAll(inf_ids.map((o) => ('#prov-' + o )).join(', ')).classed('inflate', true);
 	d3.selectAll(def_ids.map((o) => ('#prov-' + o )).join(', ')).classed('deflate', true);

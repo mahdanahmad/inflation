@@ -17,7 +17,7 @@ function initMap() {
 		projection			= d3.geoMercator()
 			.scale(width * 1.15)
 			.center([118, -1.85])
-			.translate([width / 2, height / 2]);
+			.translate([width / 2, height / 1.9]);
 
 		path	= d3.geoPath().projection(projection);
 

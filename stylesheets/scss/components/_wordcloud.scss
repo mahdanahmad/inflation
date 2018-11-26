@@ -15,5 +15,5 @@ $title-height	: 40px;
 		width: 100%; height: calc(100% - #{$title-height} - 1px);
 		text { fill: $default-back; }
 	}
-	&.opened { top: 15%; }
+	&.opened { top: 17.5%; }
 }
