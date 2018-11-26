@@ -4,6 +4,7 @@ function refreshValues() {
 	let mocked	= { month: moment().startOf('month').toDate(), inf: 0 };
 	switch (true) {
 		case _.includes(inf_ids, centered): mocked.inf = _.chain(1).random(1.5, true).round(2).value(); break;
+		case _.includes(warn_ids, centered): mocked.inf = _.chain(0.75).random(1, true).round(2).value(); break;
 		case _.includes(def_ids, centered): mocked.inf = _.chain(-1.5).random(-1, true).round(2).value(); break;
 		default: mocked.inf = _.chain(-1).random(1, true).round(2).value();
 	}

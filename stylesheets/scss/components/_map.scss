@@ -7,6 +7,7 @@ svg#map-viz {
 
 			&.inflate path { fill: $inf-clr; }
 			&.deflate path { fill: $def-clr; }
+			&.warning path { fill: $warn-clr; }
 		}
 	}
 	text#back-button { fill: $land-color; text-decoration: underline; font-size: 13px; }

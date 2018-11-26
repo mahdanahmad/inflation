@@ -12,6 +12,7 @@ g#line-viz {
 		}
 		&.inflate text#ceil { fill: $inf-clr; }
 		&.deflate text#ceil { fill: $def-clr; }
+		&.warning text#ceil { fill: $warn-clr; }
 	}
 	g#tooltip-wrapper {
 		text { fill: white; }

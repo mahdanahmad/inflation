@@ -100,7 +100,6 @@ function updateLine(data) {
 		.attr('cx', (o) => (xScale(o.month)))
 		.attr('r', 5);
 
-
 	circles.transition(def_transtn).duration(def_duration)
 		.attr('cy', (o) => (yScale(o.inf)));
 
@@ -112,6 +111,7 @@ function updateLine(data) {
 	detail.select('text#ceil').text(inf_value);
 	detail.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for ' + moment().format('MMMM YYYY'));
 
+	detail.classed('warning', inf_value > limit_warn && inf_value < limit_top);
 	detail.classed('inflate', inf_value > limit_top);
 	detail.classed('deflate', inf_value < limit_btm);
 
