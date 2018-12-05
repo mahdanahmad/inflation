@@ -12,5 +12,5 @@ function refreshValues() {
 	let datline	= _.chain(11).range().map((o) => ({ month: moment().subtract(o + 1, 'months').startOf('month').toDate(), inf: _.chain(-1).random(1, true).round(2).value() })).concat([mocked]).value();
 
 	updateLine(datline);
-	updateWordcloud(preachs);
+	// updateWordcloud(preachs);
 }

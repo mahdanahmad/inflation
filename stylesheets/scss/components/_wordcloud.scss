@@ -1,11 +1,11 @@
 $title-height	: 40px;
 
 #wordcloud-wrapper {
-	min-width: 800px; width: 55%; height: 70%;
+	min-width: 1000px; width: 55%; height: 70%;
 	position: absolute; left: 22.5%; top: calc(100% - 50px);
 	z-index: 28; background: $wordcloud-back; border-radius: 10px;
 	color: black;
-	@include transition(all .65s); transition-timing-function: ease-out;
+	@include transition(all .5s); transition-timing-function: ease-out;
 	#wordcloud-title {
 		text-align: center; font-size: 14px; line-height: $title-height;
 		border-bottom: 1px solid #{$default-back};
@@ -13,7 +13,16 @@ $title-height	: 40px;
 	}
 	#wordcloud-content {
 		width: 100%; height: calc(100% - #{$title-height} - 1px);
+		display: flex; flex-wrap: wrap; flex-direction: row;
 		text { fill: $default-back; }
+		& > div {
+			display: flex; flex-basis: calc(50% - .5px); flex-direction: column;
+			&:nth-child(odd) { border-right: 1px solid rgba($default-back, .35); }
+			&:first-child, &:first-child + div { border-bottom: 1px solid rgba($default-back, .35); }
+
+			div.horseman-title { line-height: $title-height; text-align: center; }
+			div.horseman-content { flex: 2; }
+		}
 	}
 	&.opened { top: 17.5%; }
 }

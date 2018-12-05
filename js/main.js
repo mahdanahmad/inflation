@@ -4,7 +4,10 @@ const provinces	= [{id: "11", name: "Aceh"},{id: "51", name: "Bali"},{id: "19", 
 
 let inf_ids, def_ids, warn_ids;
 
+let types	= ['Keterjangkauan Harga', 'Ketersediaan Pasokan', 'Kelancaran Distribusi', 'Komunikasi/Koordinasi'];
+
 $( document ).ready(async function() {
+	$(' #wordcloud-content ').html(types.map(o => ('<div id="' + _.kebabCase(o) + '" class="horseman"><div class="horseman-title">' + o + '</div><div class="horseman-content"></div></div>')).join(''))
 	await initMap();
 	await initWordcloud();
 

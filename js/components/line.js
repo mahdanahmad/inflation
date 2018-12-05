@@ -6,7 +6,7 @@ const ceil_size		= 75;
 const floor_size	= 12;
 
 function initLine(target) {
-	return new Promise((resolve, reject) => {
+	return new Promise(async (resolve, reject) => {
 		let bbox			= target.node().getBBox();
 
 		let canvasWidth		= bbox.width * .5;
@@ -18,10 +18,10 @@ function initLine(target) {
 
 		roam 				= target.append('g').attr('id', line_id).attr('transform', 'translate(' + ((bbox.width - canvasWidth) + margin.left) + ',' + margin.top + ')');
 
-		let data			= _.chain(12).range().map((o) => ({ month: moment().subtract(o, 'months').startOf('month').toDate(), inf: 0 })).value();
+		let mock			= _.chain(12).range().map((o) => ({ month: moment().subtract(o, 'months').startOf('month').toDate(), inf: 0 })).value();
 
-		xScale				= d3.scaleTime().domain([d3.min(data, (o) => (o.month)), d3.max(data, (o) => (o.month))]).range([0, width]);
-		yScale				= d3.scaleLinear().domain([_.floor(d3.min(data, (o) => (o.inf))), _.ceil(d3.max(data, (o) => (o.inf)))]).range([height, 0]);
+		xScale				= d3.scaleTime().domain([d3.min(mock, (o) => (o.month)), d3.max(mock, (o) => (o.month))]).range([0, width]);
+		yScale				= d3.scaleLinear().domain([_.floor(d3.min(mock, (o) => (o.inf))), _.ceil(d3.max(mock, (o) => (o.inf)))]).range([height, 0]);
 
 		line				= d3.line().x((o) => (xScale(o.month))).y((o) => (yScale(o.inf))).curve(d3.curveCatmullRom);
 
@@ -33,7 +33,7 @@ function initLine(target) {
 
 		roam.append('path')
 			.attr('id', 'line')
-			.attr('d', line(data));
+			.attr('d', line(mock));
 
 		tooltip	= roam.append('g')
 			.attr('id', 'tooltip-wrapper')
@@ -48,7 +48,7 @@ function initLine(target) {
 
 		roam.append('g')
 			.attr('id', 'dot-wrapper')
-			.selectAll('.dot').data(data).enter().append('circle')
+			.selectAll('.dot').data(mock).enter().append('circle')
 				.attr('class', 'dot')
 				.attr('cx', (o) => (xScale(o.month)))
 				.attr('cy', (o) => (yScale(o.inf)))
@@ -72,10 +72,13 @@ function initLine(target) {
 			.attr('y', ceil_size + floor_size + 10)
 			.text(moment().format('MMMM YYYY'));
 
-		detail.attr('transform', 'translate(' + (canvasWidth * (pathWidth)) + ',' + (yScale(_.chain(data).maxBy('month').get('inf').value()) - detail.node().getBBox().height / 2) + ')')
+		detail.attr('transform', 'translate(' + (canvasWidth * (pathWidth)) + ',' + (yScale(_.chain(mock).maxBy('month').get('inf').value()) - detail.node().getBBox().height / 2) + ')')
 		detail.select('text#floor').attr('x', detail.node().getBBox().width);
 
 		resolve();
+
+		// let data	= await d3.json(baseURL + 'inflation');
+		// data	= _.map(data, (value, key) => ({ month: moment(parseInt(key)).startOf('month').toDate(), inf: _.round(value, 2) }))
 
 		updateLine(_.chain(12).range().map((o) => ({ month: moment().subtract(o, 'months').startOf('month').toDate(), inf: _.chain(-1).random(1, true).round(2).value() })).value());
 	});
