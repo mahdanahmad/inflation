@@ -34,7 +34,7 @@ function initMap() {
 			.attr('id', 'background')
 			.attr('width', width)
 			.attr('height', height)
-			.on('click', () => zoom(null));
+			.on('click', () => { if (centered) { zoom(null) }});
 
 		back	= svg.append('text')
 			.attr('id', 'back-button')
@@ -44,7 +44,7 @@ function initMap() {
 			.attr('alignment-baseline', 'hanging')
 			.attr('text-anchor', 'end')
 			.text('Back to National')
-			.on('click', () => zoom(null));
+			.on('click', () => { if (centered) { zoom(null) }});
 
 		await drawGeoJson('0');
 		await initLine(svg);
@@ -113,7 +113,7 @@ function zoom(id, name) {
 			d3.selectAll('g.province').classed('unintended', false);
 		}
 		back.classed('hidden', !id);
-		refreshValues();
+		refreshValues(id);
 
 		let transform	= 'translate(' + node.width / 2 + ',' + node.height / 2 + ')scale(' + scale + ')translate(' + -x + ',' + -y + ')';
 		canvas.transition(def_transtn)

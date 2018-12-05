@@ -1,5 +1,3 @@
-const loremipsum	= 'Flannel organic culpa, consectetur lyft lorem velit ennui magna brooklyn chambray. Street art cupidatat chicharrones echo park, cardigan reprehenderit vegan enim. Irure ut pork belly humblebrag, minim disrupt aliqua. Affogato echo park typewriter quis, selfies pickled proident sartorial shoreditch organic raclette vexillologist. Godard iPhone ea succulents semiotics voluptate pop-up. Venmo sustainable letterpress wayfarers, cupidatat nostrud irure tacos cliche.';
-
 let width, height, word_canvas;
 
 function initWordcloud() {
@@ -9,22 +7,20 @@ function initWordcloud() {
 		let canvasWidth		= $(word_dest).outerWidth(true);
 		let canvasHeight	= $(word_dest).outerHeight(true);
 
-		let margin 			= { top: 10, right: 10, bottom: 10, left: 10 };
+		let margin 			= { top: 0, right: 10, bottom: 10, left: 10 };
 		width				= canvasWidth - margin.right - margin.left;
 		height				= canvasHeight - margin.top - margin.bottom;
 
 		word_canvas	= _.chain(types).map((o) => ([_.kebabCase(o), d3.select('#' + _.kebabCase(o) + ' .horseman-content').append('svg').attr('class', word_id).attr('width', canvasWidth).attr('height', canvasHeight).append('g').attr('transform', 'translate(' + (margin.left + (width / 2)) + ',' + (margin.top + (height / 2)) + ')')])).fromPairs().value();
 
-		let preachs	= _.chain(types).map((o) => ([_.kebabCase(o), _.chain(loremipsum).split(/[ '\-\(\)\*":;\[\]|{},.!?]+/).reject(_.isEmpty).sampleSize(25).map((key) => ({ key, value: _.random(5, 20) })).value()])).fromPairs().value();
-
-		updateWordcloud(preachs);
-
 		resolve();
 	});
 }
 
-function updateWordcloud(words) {
+function updateWordcloud(result) {
 	d3.selectAll(word_dest + ' > svg').selectAll('text').remove();
+
+	let words	= _.chain(result).mapKeys((value, key) => (_.kebabCase(key))).mapValues((o) => (_.map(o, (value, key) => ({ key, value })))).value();
 
 	_.forEach(words, (value, key) => {
 		let fontScale	= d3.scaleLinear().domain([d3.min(value, (o) => (o.value)), d3.max(value, (o) => (o.value))]).range([10,60]);

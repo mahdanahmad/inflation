@@ -11,11 +11,10 @@ $( document ).ready(async function() {
 	await initMap();
 	await initWordcloud();
 
-	inf_ids		= _.chain(provinces).sampleSize(3).map('id').value();
-	def_ids		= _.chain(provinces).reject((o) => (_.includes(inf_ids, o.id))).sampleSize(3).map('id').value();
-	warn_ids	= _.chain(provinces).reject((o) => (_.includes(inf_ids, o.id))).reject((o) => (_.includes(def_ids, o.id))).sampleSize(3).map('id').value();
+	d3.json(baseURL + 'colors').then((result) => { _.chain(result).toPairs().groupBy((o) => (o[1])).mapValues((o) => _.map(o, (d) => (d[0]))).forEach((value, key) => (d3.selectAll(value.map((o) => ('#prov-' + o)).join(', ')).classed(key, true))).value(); })
+	refreshValues();
+});
 
-	d3.selectAll(inf_ids.map((o) => ('#prov-' + o )).join(', ')).classed('inflate', true);
-	d3.selectAll(def_ids.map((o) => ('#prov-' + o )).join(', ')).classed('deflate', true);
-	d3.selectAll(warn_ids.map((o) => ('#prov-' + o )).join(', ')).classed('warning', true);
+$( document ).keyup((e) => {
+	if (e.key == "Escape" && $( '#wordcloud-wrapper' ).hasClass('opened')) { onclickWordcloud(); }
 });

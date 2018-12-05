@@ -18,7 +18,7 @@ function initLine(target) {
 
 		roam 				= target.append('g').attr('id', line_id).attr('transform', 'translate(' + ((bbox.width - canvasWidth) + margin.left) + ',' + margin.top + ')');
 
-		let mock			= _.chain(12).range().map((o) => ({ month: moment().subtract(o, 'months').startOf('month').toDate(), inf: 0 })).value();
+		let mock			= _.chain(13).range().map((o) => ({ month: moment().subtract(o, 'months').startOf('month').toDate(), inf: 0 })).value();
 
 		xScale				= d3.scaleTime().domain([d3.min(mock, (o) => (o.month)), d3.max(mock, (o) => (o.month))]).range([0, width]);
 		yScale				= d3.scaleLinear().domain([_.floor(d3.min(mock, (o) => (o.inf))), _.ceil(d3.max(mock, (o) => (o.inf)))]).range([height, 0]);
@@ -76,16 +76,11 @@ function initLine(target) {
 		detail.select('text#floor').attr('x', detail.node().getBBox().width);
 
 		resolve();
-
-		// let data	= await d3.json(baseURL + 'inflation');
-		// data	= _.map(data, (value, key) => ({ month: moment(parseInt(key)).startOf('month').toDate(), inf: _.round(value, 2) }))
-
-		updateLine(_.chain(12).range().map((o) => ({ month: moment().subtract(o, 'months').startOf('month').toDate(), inf: _.chain(-1).random(1, true).round(2).value() })).value());
 	});
 }
 
-function updateLine(data) {
-	data	= _.orderBy(data, 'month', 'desc');
+function updateLine(result) {
+	let data = _.chain(result).map((value, key) => ({ month: moment(parseInt(key)).startOf('month').toDate(), inf: _.round(value, 2) })).orderBy('month', 'desc').value();
 
 	xScale.domain([d3.min(data, (o) => (o.month)), d3.max(data, (o) => (o.month))]);
 	yScale.domain([_.floor(d3.min(data, (o) => (o.inf))), _.ceil(d3.max(data, (o) => (o.inf)))]);
@@ -112,7 +107,7 @@ function updateLine(data) {
 
 	let inf_value	= _.chain(data).maxBy('month').get('inf').value();
 	detail.select('text#ceil').text(inf_value);
-	detail.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for ' + moment().format('MMMM YYYY'));
+	detail.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for ' + moment(d3.max(data, (o) => (o.month))).format('MMMM YYYY'));
 
 	detail.classed('warning', inf_value > limit_warn && inf_value < limit_top);
 	detail.classed('inflate', inf_value > limit_top);

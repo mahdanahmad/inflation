@@ -16,6 +16,6 @@ g#line-viz {
 	}
 	g#tooltip-wrapper {
 		text { fill: white; }
-		rect { fill: $line-clr; fill-opacity: .65; }
+		rect { fill: rgba(black, .3); }
 	}
 }
