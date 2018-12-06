@@ -80,7 +80,7 @@ function initLine(target) {
 }
 
 function updateLine(result) {
-	let data 	= _.chain(result).map((value, key) => ({ month: moment(parseInt(key)).startOf('month').toDate(), inf: _.round(value, 2) })).orderBy('month', 'desc').value();
+	let data 	= _.chain(result).map((value, key) => ({ month: moment(parseInt(key)).startOf('month').toDate(), inf: value })).orderBy('month', 'desc').value();
 	let last	= d3.max(data, (o) => (o.month));
 
 	xScale.domain([d3.min(data, (o) => (o.month)), last]);
@@ -106,13 +106,15 @@ function updateLine(result) {
 		.on('mouseover', onMouseOver)
 		.on('mouseout', onMouseOut);
 
-	let inf_value	= _.chain(data).maxBy('month').get('inf').value();
+	let inf_value	= _.chain(data).maxBy('month').get('inf').round(2).value();
 	detail.select('text#ceil').text(inf_value);
 	detail.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for ' + moment(last).format('MMMM YYYY'));
 
-	// detail.classed('warning', inf_value > limit_warn && inf_value < limit_top);
-	// detail.classed('inflate', inf_value > limit_top);
-	// detail.classed('deflate', inf_value < limit_btm);
+	if (year.classed('selected')) {
+		detail.classed('warning', inf_value > limit_warn && inf_value < limit_top);
+		detail.classed('inflate', inf_value > limit_top);
+		detail.classed('deflate', inf_value < limit_btm);
+	}
 
 	let transform	= detail.attr('transform').split(',')[0] + ',' + (yScale(_.chain(data).maxBy('month').get('inf').value()) - detail.node().getBBox().height / 2) + ')';
 	selector.select('g#detail-wrapper').attr('transform', transform);
@@ -122,7 +124,7 @@ function onMouseOver(o) {
 	let text	= tooltip.select('text');
 	let rect	= tooltip.select('rect');
 
-	text.text(moment(o.month).format('MMMM YYYY') + ': ' + o.inf);
+	text.text(moment(o.month).format('MMMM YYYY') + ': ' + _.round(o.inf, 2));
 
 	let rectWidth	= text.node().getBBox().width + 25;
 	let rectHeight	= text.node().getBBox().height + 10;

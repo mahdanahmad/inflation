@@ -11,8 +11,8 @@ const def_font		= 'Poppins';
 const def_duration	= 750;
 const def_transtn	= d3.transition().ease(d3.easeCubicOut);
 
-const limit_top		= 1;
-const limit_warn	= .75;
-const limit_btm		= -1;
+const limit_top		= 4.5;
+const limit_warn	= 3.5;
+const limit_btm		= -3.5;
 
 const baseURL		= "http://inflationapi.herokuapp.com/";
