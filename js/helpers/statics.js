@@ -15,4 +15,4 @@ const limit_top		= 4.5;
 const limit_warn	= 3.5;
 const limit_btm		= -3.5;
 
-const baseURL		= "http://inflationapi.herokuapp.com/";
+const baseURL		= "http://inflationapi.apps.pulselabjakarta.id/";

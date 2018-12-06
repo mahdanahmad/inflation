@@ -2,7 +2,7 @@ $title-height	: 40px;
 
 #wordcloud-wrapper {
 	min-width: 1000px; width: 55%; height: 70%;
-	position: absolute; left: 22.5%; top: calc(100% - 50px);
+	position: absolute; left: 50%; top: calc(100% - 50px); @include transform(translateX(-50%));
 	z-index: 28; background: $wordcloud-back; border-radius: 10px;
 	color: black;
 	@include transition(all .5s); transition-timing-function: ease-out;
