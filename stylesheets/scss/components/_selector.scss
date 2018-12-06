@@ -1,0 +1,9 @@
+g#selector-viz {
+	g {
+		text {
+			fill: $land-color; font-family: $selector-stack; font-weight: 900; font-size: 60px;
+			tspan { font-weight: 400; font-size: 15px; }
+		}
+		&:not(.selected) text { fill-opacity: .25; }
+	}
+}

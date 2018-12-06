@@ -12,6 +12,7 @@ $( document ).ready(async function() {
 	await initWordcloud();
 
 	d3.json(baseURL + 'colors').then((result) => { _.chain(result).toPairs().groupBy((o) => (o[1])).mapValues((o) => _.map(o, (d) => (d[0]))).forEach((value, key) => (d3.selectAll(value.map((o) => ('#prov-' + o)).join(', ')).classed(key, true))).value(); })
+
 	refreshValues();
 });
 

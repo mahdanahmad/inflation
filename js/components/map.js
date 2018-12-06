@@ -48,6 +48,7 @@ function initMap() {
 
 		await drawGeoJson('0');
 		await initLine(svg);
+		await initSelector(svg);
 
 		resolve();
 	});
