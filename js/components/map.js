@@ -46,7 +46,7 @@ function initMap() {
 			.text('Back to National')
 			.on('click', () => { if (centered) { zoom(null) }});
 
-		await drawGeoJson('0');
+		await drawGeoJson('indonesia');
 		await initLine(svg);
 		await initSelector(svg);
 
@@ -59,11 +59,11 @@ function drawGeoJson(filename) {
 		let raw		= await d3.json('public/geojson/' + filename + '.json');
 		let topo	= topojson.feature(raw, raw.objects.map);
 
-		mappedGeo	= _.chain(topo).get('features', []).keyBy('properties.id').mapValues((o) => ({ centroid: path.centroid(o), bounds: path.bounds(o) })).value();
+		mappedGeo	= _.chain(topo).get('features', []).keyBy('properties.id_provinsi').mapValues((o) => ({ centroid: path.centroid(o), bounds: path.bounds(o) })).value();
 
 		let provElem	= canvas.append('g').attr('id', 'geojson-wrapper')
 			.selectAll('g.province').data(topo.features).enter().append('g')
-				.attr('id', o => 'prov-' + o.properties.id)
+				.attr('id', o => 'prov-' + o.properties.id_provinsi)
 				.attr('class', 'province cursor-pointer');
 
 		provElem.append('path')
@@ -73,14 +73,14 @@ function drawGeoJson(filename) {
 			.style('stroke-width', '.5px');
 
 		provElem.append('text')
-			.attr('x', (o) => (mappedGeo[o.properties.id].centroid[0]))
-			.attr('y', (o) => (mappedGeo[o.properties.id].centroid[1]))
+			.attr('x', (o) => (mappedGeo[o.properties.id_provinsi].centroid[0]))
+			.attr('y', (o) => (mappedGeo[o.properties.id_provinsi].centroid[1]))
 			.attr('class', 'hidden')
 			.style('font-size', 11 + 'px')
-			.text((o) => (o.properties.name));
+			.text((o) => (o.properties.nm_provinsi));
 
 		provElem
-			.on('click', (o) => (zoom(o.properties.id, o.properties.name)))
+			.on('click', (o) => (zoom(o.properties.id_provinsi, o.properties.nm_provinsi)))
 
 		resolve();
 	});
