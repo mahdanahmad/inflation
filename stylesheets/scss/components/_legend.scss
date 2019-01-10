@@ -1,0 +1,7 @@
+g#legend {
+	font-size: 12px;
+	text { fill: $land-color; }
+	.wrapped.inflate rect { fill: $inf-clr; }
+	.wrapped.warning rect { fill: $warn-clr; }
+	.wrapped.deflate rect { fill: $def-clr; }
+}

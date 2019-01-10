@@ -49,6 +49,7 @@ function initMap() {
 		await drawGeoJson('indonesia');
 		await initLine(svg);
 		await initSelector(svg);
+		await createLegend(svg);
 
 		resolve();
 	});

@@ -7,7 +7,7 @@ function initSelector(target) {
 		let canvasWidth		= bbox.width * .5;
 		let canvasHeight	= bbox.height * .2;
 
-		let canvas			= target.append('g').attr('id', selector_id).attr('translate', 'transform(0,0)');
+		let canvas			= target.append('g').attr('id', selector_id).attr('transform', 'translate(0,0)');
 
 		year	= canvas.append('g').attr('id', 'year').attr('class', 'cursor-pointer selection').attr('transform', 'translate(' + (canvasWidth / 10 * 2)  + ',' + (canvasHeight / 2) + ')');
 		month	= canvas.append('g').attr('id', 'month').attr('class', 'cursor-pointer selection').attr('transform', 'translate(' + (canvasWidth / 10 * 2 + 180)  + ',' + (canvasHeight / 2) + ')');
