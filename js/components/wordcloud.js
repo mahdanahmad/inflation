@@ -34,10 +34,12 @@ function updateWordcloud(result) {
 			.font(def_font)
 			.on('end', (words) => {
 				word_canvas[key].selectAll('text').data(words, (o) => (o.key)).enter().append('text')
+					.attr('class', 'cursor-pointer')
 					.style('font-family', def_font)
 					.attr('font-size', 1)
 					.attr('text-anchor', 'middle')
-					.text((o) => (o.key));
+					.text((o) => (o.key))
+					.on('click', (o) => { toggleNews(o.key); });
 
 				word_canvas[key].selectAll('text').transition(def_transtn).duration(def_duration)
 					.style('font-size', (o) => (fontScale(o.value) + 'px'))
@@ -51,4 +53,18 @@ function updateWordcloud(result) {
 function onclickWordcloud() {
 	$(' #wordcloud-title > span.typcn, #overlay ').toggleClass('hidden');
 	$(' #wordcloud-wrapper ').toggleClass('opened');
+	if ($(' #wordcloud-wrapper ').hasClass('opened')) { toggleNews(); }
+}
+
+function toggleNews(text) {
+	if (text) {
+		$(' #wordcloud-news span > b ').text(text);
+
+		$(' #wordcloud-content ').addClass('hidden');
+		$(' #wordcloud-news ').removeClass('hidden');
+	} else {
+
+		$(' #wordcloud-content ').removeClass('hidden');
+		$(' #wordcloud-news ').addClass('hidden');
+	}
 }

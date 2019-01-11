@@ -24,5 +24,24 @@ $title-height	: 40px;
 			div.horseman-content { flex: 2; }
 		}
 	}
+	#wordcloud-news {
+		width: 100%; height: calc(100% - #{$title-height} - 1px);
+		#cloud-chaser {
+			font-size: 14px; text-transform: lowercase; padding: 10px 0px 10px 15px; position: relative; line-height: 20px;
+			span:first-child {
+				float: left;
+				span:nth-child(1) { font-size: 18px; position: relative; }
+				span:nth-child(2) { margin-left: 5px;  text-decoration: underline; }
+			}
+			span:last-child { float: right; margin-right: 25px; }
+			&::after { content: ""; clear: both; display: table; }
+		}
+		#anchor {
+			height: calc(100% - 45px); overflow-y: auto;
+			#anchwrap {
+
+			}
+		}
+	}
 	&.opened { top: 17.5%; }
 }

@@ -14,5 +14,7 @@ const def_transtn	= d3.transition().ease(d3.easeCubicOut);
 const limit_top		= 4.5;
 const limit_warn	= 4.0;
 const limit_btm		= 2.5;
+const limit_fall	= 0;
 
 const baseURL		= "http://inflationapi.apps.pulselabjakarta.id/";
+let fetching		= false;
