@@ -18,3 +18,6 @@ const limit_fall	= 0;
 
 const baseURL		= "http://inflationapi.apps.pulselabjakarta.id/";
 let fetching		= false;
+
+const limits	= [limit_top, limit_warn, limit_btm, limit_fall];
+const states	= ['freefall', 'deflation', 'normal', 'warning', 'inflation']

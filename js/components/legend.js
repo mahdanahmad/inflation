@@ -1,4 +1,4 @@
-const legends 	= [{ type: 'inflate', text: '> 4.5%' }, { type: 'warning', text: '4.0% - 4.5%' }, { type: 'deflate', text: '0% - 2.5%' }, { type: 'freefall', text: '< 0%' }]
+const legends 	= [{ type: 'inflate', text: '> 4.5%' }, { type: 'warning', text: '4.0% - 4.5%' }, { type: 'normal', text: '2.5% - 4%' }, { type: 'deflate', text: '0% - 2.5%' }, { type: 'freefall', text: '< 0%' }]
 
 const wrapwidth	= 100;
 

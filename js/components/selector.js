@@ -34,7 +34,7 @@ function onClick() {
 		current.classed('selected', true);
 
 		if (current.attr('id') == 'year') {
-			d3.json(baseURL + 'colors').then((result) => { _.chain(result).toPairs().groupBy((o) => (o[1])).mapValues((o) => _.map(o, (d) => (d[0]))).forEach((value, key) => (d3.selectAll(value.map((o) => ('#prov-' + o)).join(', ')).classed(key, true))).value(); })
+			d3.json(baseURL + 'colors').then((result) => { _.chain(result).map((val, id) => ({ id, color: states[_.chain(limits).filter(o => (o <= val)).size().value()] })).groupBy('color').mapValues(o => _.map(o, 'id')).forEach((val, key) => { d3.selectAll(val.map(o => ('#prov-' + o)).join(', ')).classed(key, true) }).value() })
 		} else {
 			d3.selectAll('.province').classed('inflation warning deflation', false);
 		}

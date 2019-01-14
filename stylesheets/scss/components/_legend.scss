@@ -3,6 +3,7 @@ g#legend {
 	text { fill: $land-color; }
 	.wrapped.inflate rect { fill: $inf-clr; }
 	.wrapped.warning rect { fill: $warn-clr; }
+	.wrapped.normal rect { fill: $land-color; }
 	.wrapped.deflate rect { fill: $def-clr; }
 	.wrapped.freefall rect { fill: $fall-clr; }
 }

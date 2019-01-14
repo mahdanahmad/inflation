@@ -8,6 +8,7 @@ svg#map-viz {
 			&.inflation path { fill: $inf-clr; }
 			&.deflation path { fill: $def-clr; }
 			&.warning path { fill: $warn-clr; }
+			&.freefall path { fill: $fall-clr; }
 			&.normal path {  }
 		}
 	}
