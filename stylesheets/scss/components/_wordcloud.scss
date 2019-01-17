@@ -7,8 +7,9 @@ $title-height	: 40px;
 	color: black;
 	@include transition(all .5s); transition-timing-function: ease-out;
 	#wordcloud-title {
-		text-align: center; font-size: 14px; line-height: $title-height;
+		text-align: center; font-size: 16px; line-height: $title-height;
 		border-bottom: 1px solid #{$default-back};
+		span#title-region { text-transform: uppercase; font-weight: 700; }
 		span.typcn { font-size: 20px; line-height: $title-height; position: absolute; right: 15px; color: $default-back; }
 	}
 	#wordcloud-content {
@@ -20,14 +21,14 @@ $title-height	: 40px;
 			&:nth-child(odd) { border-right: 1px solid rgba($default-back, .35); }
 			&:first-child, &:first-child + div { border-bottom: 1px solid rgba($default-back, .35); }
 
-			div.horseman-title { line-height: $title-height; text-align: center; }
+			div.horseman-title { line-height: $title-height; text-align: center; font-size: 14px; }
 			div.horseman-content { flex: 2; }
 		}
 	}
 	#wordcloud-news {
 		width: 100%; height: calc(100% - #{$title-height} - 1px);
 		#cloud-chaser {
-			font-size: 14px; text-transform: lowercase; padding: 10px 0px 10px 15px; position: relative; line-height: 20px;
+			font-size: 16px; text-transform: lowercase; padding: 10px 0px 10px 15px; position: relative; line-height: 20px;
 			span:first-child {
 				float: left;
 				span:nth-child(1) { font-size: 18px; position: relative; }
