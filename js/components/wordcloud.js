@@ -22,9 +22,10 @@ function updateWordcloud(result) {
 
 	let words	= _.chain(result).mapKeys((value, key) => (_.kebabCase(key))).mapValues((o) => (_.map(o, (value, key) => ({ key, value })))).value();
 
-	_.forEach(words, (value, key) => {
-		let fontScale	= d3.scaleLinear().domain([d3.min(value, (o) => (o.value)), d3.max(value, (o) => (o.value))]).range([10,60]);
+	let chain		= _.chain(result).flatMap(_.values).uniq();
+	let fontScale	= d3.scaleLinear().domain([chain.min().value(), chain.max().value()]).range([10,60]);
 
+	_.forEach(words, (value, key) => {
 		d3.layout.cloud().size([width, height])
 			.words(value)
 			.padding(2)
@@ -50,6 +51,21 @@ function updateWordcloud(result) {
 	});
 }
 
+async function updateNews(text) {
+	let data = await d3.json(baseURL + 'articles/' + text);
+	console.log(data);
+
+	$(' #wordcloud-news > #anchor > #anchwrap ').html(data.map(o => (
+		"<div class='news-stack'>" +
+			"<div class='news-image' style='background-image: url(" + (o.news_image || '/public/news-placeholder') + ");'></div>" +
+			"<div class='news-wrapper'>" +
+				"<div class='news-title'>" + o.news_title + "</div>" +
+				"<div class='news-content'>" + o.news_content + "</div>" +
+			"</div>" +
+		"</div>"
+	)).join(''))
+}
+
 function onclickWordcloud() {
 	$(' #wordcloud-title > span.typcn, #overlay ').toggleClass('hidden');
 	$(' #wordcloud-wrapper ').toggleClass('opened');
@@ -59,6 +75,7 @@ function onclickWordcloud() {
 function toggleNews(text) {
 	if (text) {
 		$(' #wordcloud-news span > b ').text(text);
+		updateNews(text);
 
 		$(' #wordcloud-content ').addClass('hidden');
 		$(' #wordcloud-news ').removeClass('hidden');
