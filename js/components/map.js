@@ -81,6 +81,26 @@ function drawGeoJson(filename) {
 			.text((o) => (o.properties.nm_provinsi));
 
 		provElem
+			.on("mousemove", function(o) {
+				if (!centered) {
+					let mouse = d3.mouse(canvas.node()).map( (o) => (parseInt(o)));
+
+					let tooltip		= d3.select("#map-tooltip");
+					tooltip.classed("hidden", false);
+					tooltip.text(o.properties.nm_provinsi);
+
+					let bbox		= tooltip.node().getBoundingClientRect();
+
+					let xPosition	= mouse[0] - (bbox.width / 2);
+					let yPosition	= mouse[1] - bbox.height - 5;
+
+					tooltip
+						.style("left", xPosition + "px")
+						.style("top", yPosition + "px")
+
+				}
+			})
+			.on("mouseout", () => { d3.select("#map-tooltip").classed("hidden", true); })
 			.on('click', (o) => (zoom(o.properties.id_provinsi, o.properties.nm_provinsi)))
 
 		resolve();
@@ -91,6 +111,8 @@ function zoom(id, name) {
 	if (path && canvas.node()) {
 		let x, y;
 		let node	= canvas.node().getBBox();
+
+		d3.select("#map-tooltip").classed("hidden", true);
 
 		if (mappedGeo[id] && (centered !== id)) {
 			x = mappedGeo[id].centroid[0];
