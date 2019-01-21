@@ -52,8 +52,8 @@ function updateWordcloud(result) {
 }
 
 async function updateNews(text) {
-	let data = await d3.json(baseURL + 'articles/' + text);
-	console.log(data);
+	let data = await d3.json(baseURL + 'articles/' + text + (centered ? '?prov=' + centered : ''));
+	// console.log(data);
 
 	$(' #wordcloud-news > #anchor > #anchwrap ').html(data.map(o => (
 		"<div class='news-stack'>" +
