@@ -29,6 +29,7 @@ function initSelector(target) {
 
 function onClick() {
 	let current	= d3.select(this);
+	
 	if (d3.select('.selection.selected').attr('id') !== current.attr('id') && !fetching) {
 		d3.select('.selection.selected').classed('selected', false);
 		current.classed('selected', true);

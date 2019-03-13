@@ -11,11 +11,20 @@ $( document ).ready(async function() {
 	await initMap();
 	await initWordcloud();
 
-	d3.json(baseURL + 'colors').then((result) => { _.chain(result).map((val, id) => ({ id, color: states[_.chain(limits).filter(o => (o <= val)).size().value()] })).groupBy('color').mapValues(o => _.map(o, 'id')).forEach((val, key) => { d3.selectAll(val.map(o => ('#prov-' + o)).join(', ')).classed(key, true) }).value() })
-
-	refreshValues();
+	// d3.json(baseURL + 'colors').then((result) => { _.chain(result).map((val, id) => ({ id, color: states[_.chain(limits).filter(o => (o <= val)).size().value()] })).groupBy('color').mapValues(o => _.map(o, 'id')).forEach((val, key) => { d3.selectAll(val.map(o => ('#prov-' + o)).join(', ')).classed(key, true) }).value() });
 });
 
 $( document ).keyup((e) => {
 	if (e.key == "Escape" && $( '#wordcloud-wrapper' ).hasClass('opened')) { onclickWordcloud(); }
 });
+
+function opencurtain(flag) {
+	$(' #cover ').slideUp();
+
+	year.classed('selected', !flag);
+	month.classed('selected', flag);
+
+	if (!flag) { d3.json(baseURL + 'colors').then((result) => { _.chain(result).map((val, id) => ({ id, color: states[_.chain(limits).filter(o => (o <= val)).size().value()] })).groupBy('color').mapValues(o => _.map(o, 'id')).forEach((val, key) => { d3.selectAll(val.map(o => ('#prov-' + o)).join(', ')).classed(key, true) }).value() }); }
+
+	refreshValues();
+}
