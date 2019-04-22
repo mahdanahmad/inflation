@@ -16,7 +16,8 @@ const limit_warn	= 4.0;
 const limit_btm		= 2.5;
 const limit_fall	= 0;
 
-const baseURL		= "http://inflationapi.apps.pulselabjakarta.id/";
+const baseURL		= "http://54.255.244.60:3000/";
+// const baseURL		= "http://localhost:3010/";
 let fetching		= false;
 
 const limits	= [limit_top, limit_warn, limit_btm, limit_fall];
