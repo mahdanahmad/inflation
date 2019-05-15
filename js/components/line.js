@@ -106,7 +106,7 @@ function updateLine(result) {
 		.on('mouseover', onMouseOver)
 		.on('mouseout', onMouseOut);
 
-	let inf_value	= _.chain(data).maxBy('month').get('inf').round(2).value();
+	let inf_value	= _.chain(data).maxBy('month').get('inf').round(2).value().toFixed(2);
 	detail.select('text#ceil').text(inf_value);
 	detail.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for ' + moment(last).format('MMMM YYYY'));
 
